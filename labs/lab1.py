@@ -1,4 +1,12 @@
 from math import *  #импортировал математику
-x, y, z = float(input()), float(input()), float(input())
-a = ln(abs(x-1)) - y**(1./3.)/x**(1./3.) + sqrt(abs(y)) * ln(x + 3)
-b =
+
+x = float(input("Введите x: "))
+y = float(input("Введите y: "))
+z = float(input("Введите z: "))
+
+a = log1p(abs(x-1)) + abs(y**(1./3.))/(1 + x**(1./3.)) + sin(y) * sin(x)
+b = (abs(x - 1))**(1./3.) + cos(z) * tan(4 * x) + sinh(y)
+print(a, b)
+
+
+
