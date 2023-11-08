@@ -21,5 +21,17 @@ def task1():
 def task2():
     a = int(input("Введите a "))
     b = int(input("Введите b "))
-    for x in range(a, b)
+    for x in range(a, b):
         (x - e)**2 and 7*sin(x) + 9*cos(x)
+
+def task3():
+    a = int(input('Введите число '))
+    b = int(input('Введите систему счисления'))
+    d = 1
+    while not d == 0:
+        c = a % b
+        print(c)
+        d = a // b
+        a = d
+
+task3()
