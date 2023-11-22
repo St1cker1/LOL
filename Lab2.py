@@ -22,6 +22,7 @@ def task1():
 def task2():
     a = float(input("Введите a "))
     b = float(input("Введите b "))
+    M1 = numpy.array([2.,5.],
     for x in range(a, b):
         (x - e)**2 and 7*sin(x) + 9*cos(x)
 
