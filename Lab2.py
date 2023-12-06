@@ -1,6 +1,6 @@
 from math import *
 
-import numpy as numpy
+from sympy import symbols, Eq, solve
 
 
 def task1():
@@ -20,11 +20,20 @@ def task1():
 
 
 def task2():
+    def f(x):
+        if x >= 0:
+            return (x - e)**2
+        elif x < 0:
+            return 7 * sin(x) + 9 * cos(x)
+
     a = float(input("Введите a "))
     b = float(input("Введите b "))
-    M1 = numpy.array([2.,5.],
-    for x in range(a, b):
-        (x - e)**2 and 7*sin(x) + 9*cos(x)
+
+    x=[]
+
+
+    #plot matplotlib
+
 
 def task3():
     a = int(input('Введите число '))
@@ -36,4 +45,4 @@ def task3():
         d = a // b
         a = d
 
-task3()
+task2()
