@@ -44,6 +44,8 @@ def task3():
         print(c)
         d = a // b
         a = d
+
+
 def task5():
     def find_floor(n, k):
     apartment_number = int(input("Введите номер квартиры: "))
