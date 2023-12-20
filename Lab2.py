@@ -91,7 +91,12 @@ herbivores = int(input("Введите начальное количество �
 predators = int(input("Введите начальное количество хищников: "))
 
 calculate_population(weeks, herbivores, predators)
-def task7():
-    pip install pandas
-    import pandas as pd
-    S = sin(x) +
+def task8():
+    n = int(input("Введите n "))
+    x = int(input("Введите x "))
+    for i in range(1, n+1):
+        s = s +((sin(x))**(2 * i - 1)/(2i - 1)
+                print(s)
+    
+    
+ 
