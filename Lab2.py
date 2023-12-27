@@ -92,11 +92,16 @@ predators = int(input("Введите начальное количество х
 
 calculate_population(weeks, herbivores, predators)
 def task8():
-    n = int(input("Введите n "))
-    x = int(input("Введите x "))
-    for i in range(1, n+1):
-        s = s +((sin(x))**(2 * i - 1)/(2i - 1)
-                print(s)
+    from math import factorial, sin
+
+n = int(input("Введите n "))
+x = int(input("Введите x "))
+s = 0
+
+for i in range(1, n + 1):
+    s += (sin(x)**(2 * i - 1)) / factorial(2 * i - 1)
+
+print(s)
     
     
  
