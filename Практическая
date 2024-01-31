@@ -1,0 +1,59 @@
+from PyQt5.QtWidgets import (
+    QApplication,
+    QLabel,
+    QLineEdit,
+    QMainWindow,
+    QPushButton,
+    QVBoxLayout,
+    QVBoxLayout,
+    QWidget,)
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
+
+        # Назначим заголовок окна
+        self.setWindowTitle("График")
+
+        # Создание виджетов
+        self.canvas = FigureCanvas(plt.figure()) # Создание полотна
+
+        # Создание центрального виджета
+        central_widget = QWidget()
+        layout = QVBoxLayout()  # макет, на который будут добавляться виджеты
+        central_widget.setLayout(layout)  # добавление макета на центральный виджет
+
+        # Добавление виджетов на макет
+        layout.addWidget(self.canvas)
+
+        # Установка центрального виджета
+        self.setCentralWidget(central_widget)
+
+        # Вызов функции рисования графика
+        self.plot_data()
+
+    def plot_data(self):
+        x = np.linspace(0, 1, 50)
+        function = lambda x: x**3
+        y = [function(value) for value in x]
+        plt.plot(x, y)
+        plt.grid(True)
+        plt.xlabel('x')
+        plt.ylabel('y')
+        plt.title('Заголовок график y=x**3')
+        # Обновление виджета №0 (виджет с полотном Matplotlib)
+        self.centralWidget().layout().itemAt(0).widget().draw()
+
+
+# Создать приложение QApplication
+app = QApplication([])
+
+# Создать окно приложения
+main_window = MainWindow()
+main_window.show()
+
+# Запустить приложение
+app.exec_()
