@@ -16,24 +16,26 @@ def task1():
             print('Квадратное число')
     else:
             print('Бесквадратное число')
-
-
-
+        
 def task2():
-    def f(x):
-        if x >= 0:
-            return (x - e)**2
-        elif x < 0:
-            return 7 * sin(x) + 9 * cos(x)
+import numpy as np
+import matplotlib.pyplot as plt
 
-    a = float(input("Введите a "))
-    b = float(input("Введите b "))
+def function(x):
+return (x - np.exp(1))**2 + 7 * np.sin(x) + 9 * np.cos(x)
 
-    x=[]
+start = float(input("Введите начало диапазона: "))
+end = float(input("Введите конец диапазона: "))
+step = 0.1
 
+x = np.arange(start, end, step)
+y = function(x)
 
-    #plot matplotlib
-
+plt.plot(x, y)
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('График функции')
+plt.show()
 
 def task3():
     a = int(input('Введите число '))
