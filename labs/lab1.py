@@ -23,31 +23,49 @@ def task3():
     print(f)
 
 def task4():
+    def calculate_truncated_cone_radius(r, h, l):
+    R = (l * r) / math.sqrt(l**2 - h**2) + r
+    return R
     r = float(input("Введите: r "))
     h = float(input("Введите: h "))
     l = float(input("Введите: l"))
-    R = 0
+result = calculate_truncated_cone_radius(r, h, l)
+print("Радиус усеченного конуса R равен:", result
 
 def task5():
-    M = float(input("Введите M"))
-    m = float(input("Введите m"))
-    v = float(input("Введите v"))
-    u = float(input("Введите u"))
-    S = (m**2 * v**2)/(M**2 * 2 * 10 * u)
-    print(S)
+M = float(input("Введите M"))
+m = float(input("Введите m"))
+v = float(input("Введите v"))
+u = float(input("Введите u"))
+S = (m**2 * v**2)/(M**2 * 2 * 10 * u)
+print(S)
 
 def task6():
     N = float(input("Введите N"))
-    V1 = N * 4
-    V2 = 1
-    V = V1 - V2
-    print(V)
+    def calculate_sphere_volume(r):
+    return (4/3) * math.pi * (r**3)
+
+def calculate_ratio_of_volumes(N):
+    # Пусть r1 - радиус первой сферы, а r2 - радиус второй сферы
+    # Тогда r1 = N * r2
+    # Объемы шаров равны V1 = (4/3) * pi * r1^3 и V2 = (4/3) * pi * r2^3
+    # V1/V2 = (r1/r2)^3 = N^3
+    ratio = N**3
+    return ratio
+result = calculate_ratio_of_volumes(N)
+print("Отношение V1/V2 равно:", result)
 
 def task7():
     A = float(input("Введите A от -100 до 100 не включая 0"))
     B = float(input("Введите B от -100 до 100"))
-    X = -B/A
-    print(X)
+    def solve_linear_equation(A, B):
+    if A == 0:
+        return "Уравнение не является линейным (A не может быть равно 0)"
+    else:
+        x = -B / A
+        return round(x, 4)
+result = solve_linear_equation(A, B)
+print("Корень уравнения равен:", result)
 
 def task8():
     S = float(input("Введите S"))
@@ -64,5 +82,5 @@ def task9():
     M = G - (G * K)
     print(M)
 
-    task9()
+    task1()
 
