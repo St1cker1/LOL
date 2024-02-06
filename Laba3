@@ -58,3 +58,101 @@ def proverka5(array):
     print(f"Количество пробелов в массиве: {count}")
 
 task1()
+
+import random
+
+def print_char_2d_array(array):
+    for row in array:
+        for char in row:
+            print(char, end=" ")
+        print()
+
+def task2():
+    print("Введите размер стороны поля для игры «Морской бой»:")
+    n = int(input())
+
+    array = [['•'] * (n+1) for _ in range(n+1)]
+
+    # Расстановка символов "∆"
+    for i in range(1, n+1):
+        for j in range(1, n+1):
+            array[i][j] = '∆'
+
+    print_char_2d_array(array)
+
+    def vistrel(row, column, array):
+        if array[row][column] == '∆':
+            array[row][column] = 'x'
+
+    while True:
+        print("Введите координаты в формате 'A2' или 'A 2':")
+        coordinates = input().split()
+        if len(coordinates) == 2:
+            column = ord(coordinates[0].upper()) - ord('A') + 1
+            row = int(coordinates[1])
+            if 1 <= row <= n and 1 <= column <= n:
+                vistrel(row, column, array)
+                print_char_2d_array(array)
+            else:
+                print("Неверные координаты, попробуйте снова.")
+        else:
+            print("Неверный формат координат, попробуйте снова.")
+
+task2()
+
+def task3():
+    keyword = "стоп"
+
+    while True:
+        print("Введите текст:")
+        text = input()
+
+        if text == keyword:
+            break
+
+        with open("output.txt", "a") as file:
+            file.write(text + "\n")
+
+task3()
+
+def print_string_list(array):
+    for string in array:
+        print(string)
+
+def proverka(array, string):
+    modified_array = []
+    for element in array:
+        if string in element:
+            modified_array.append(element + " ✔")
+        else:
+            modified_array.append(element)
+    return modified_array
+
+def task4():
+    array = [
+        "example.com",
+        "facebook.com",
+        "twitter.com",
+        "instagram.com",
+        "linkedin.com",
+        "stackoverflow.com",
+        "github.com",
+        "youtube.com",
+        "medium.com",
+        "google.com"
+    ]
+
+    print("Список элементов:")
+    print_string_list(array)
+
+    print("\nВведите искомый текст:")
+    text_to_find = input()
+
+    modified_array = proverka(array, text_to_find)
+
+    print("\nСписок элементов после проверки:")
+    print_string_list(modified_array)
+
+task4()
+
+
