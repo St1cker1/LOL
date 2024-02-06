@@ -1,0 +1,60 @@
+def print_char_list(array):
+    for char in array:
+        print(char)
+
+def task1():
+    n = int(input("Введите количество символов: "))
+    array = []
+    for i in range(n):
+        symbol = input("Введите символ: ")
+        array.append(symbol)
+
+    print("Последовательность символов:")
+    print_char_list(array)
+
+    proverka1(array, "значение")
+    proverka2(array, "первый_символ", "второй_символ")
+    proverka3(array)
+    proverka4(array)
+    proverka5(array)
+
+def proverka1(array, symbol):
+    if symbol in array:
+        print(f"Символ '{symbol}' входит в последовательность")
+    else:
+        print(f"Символ '{symbol}' не входит в последовательность")
+
+def proverka2(array, first_symbol, second_symbol):
+    count = 0
+    for i in range(len(array) - 1):
+        if array[i] == first_symbol and array[i+1] == second_symbol:
+            count += 1
+    print(f"Количество пар со соседствующими символами '{first_symbol}' и '{second_symbol}': {count}")
+
+def proverka3(array):
+    count = 0
+    for i in range(len(array) - 1):
+        if array[i] == array[i+1]:
+            count += 1
+    print(f"Количество пар соседствующих одинаковых символов: {count}")
+
+def proverka4(array):
+    index = -1
+    for i in range(1, len(array) - 1):
+        if array[i] == array[i+1] and array[i-1] == array[i+1]:
+            index = i
+            break
+
+    if index != -1:
+        print(f"Существуют такие символы s{i} и s{j} (где 1 < i < j < n) такие, что '{array[index]}' совпадает со следующим символом.")
+    else:
+        print("Нет таких символов")
+
+def proverka5(array):
+    count = 0
+    for char in array:
+        if char == " ":
+            count += 1
+    print(f"Количество пробелов в массиве: {count}")
+
+task1()
