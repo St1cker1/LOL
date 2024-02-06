@@ -155,4 +155,44 @@ def task4():
 
 task4()
 
+import os
+import random
+import string
+
+def task7():
+    # Шаг 1: Задание массива расширений файлов
+    extensions = ['txt', 'doc', 'pdf']  # Пример массива с тремя расширениями
+
+    # Шаг 2: Создание директорий
+    for extension in extensions:
+        os.makedirs(extension, exist_ok=True)
+
+    # Шаг 3: Создание файлов
+    num_files = 10
+    files = []
+    for _ in range(num_files):
+        file_name = ''.join(random.choices(string.ascii_lowercase, k=5))  # Генерация случайного имени файла
+        extension = random.choice(extensions)  # Случайный выбор расширения из массива
+        file_path = file_name + '.' + extension
+        files.append(file_path)
+        open(file_path, 'w').close()  # Создание пустого файла
+
+    # Шаг 4: Вывод списка файлов
+    print("Список файлов:")
+    for file_path in files:
+        print(file_path)
+
+    # Шаг 5: Ожидание нажатия клавиши для переноса файлов
+    input("Нажмите любую клавишу для переноса файлов ...")
+
+    # Шаг 6: Перенос файлов в соответствующие директории
+    for file_path in files:
+        extension = file_path.split('.')[-1]
+        if extension in extensions:
+            destination_dir = extension
+            os.rename(file_path, os.path.join(destination_dir, file_path))
+
+# Пример использования функции
+task7()
+
 
