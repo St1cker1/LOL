@@ -1,198 +1,252 @@
 def print_char_list(array):
     for char in array:
-        print(char)
-
-def task1():
-    n = int(input("Введите количество символов: "))
-    array = []
-    for i in range(n):
-        symbol = input("Введите символ: ")
-        array.append(symbol)
-
-    print("Последовательность символов:")
-    print_char_list(array)
-
-    proverka1(array, "значение")
-    proverka2(array, "первый_символ", "второй_символ")
-    proverka3(array)
-    proverka4(array)
-    proverka5(array)
+        print(char, end=' ')
+    print()
 
 def proverka1(array, symbol):
     if symbol in array:
-        print(f"Символ '{symbol}' входит в последовательность")
-    else:
-        print(f"Символ '{symbol}' не входит в последовательность")
+        print(f'Символ "{symbol}" входит в последовательность "{array}".')
 
 def proverka2(array, first_symbol, second_symbol):
-    count = 0
-    for i in range(len(array) - 1):
+    count_pairs = 0
+    for i in range(len(array)-1):
         if array[i] == first_symbol and array[i+1] == second_symbol:
-            count += 1
-    print(f"Количество пар со соседствующими символами '{first_symbol}' и '{second_symbol}': {count}")
+            count_pairs += 1
+    print(f'Количество пар соседствующих символов "{first_symbol}{second_symbol}" в последовательности "{array}": {count_pairs}')
 
 def proverka3(array):
-    count = 0
-    for i in range(len(array) - 1):
+    count_pairs = 0
+    for i in range(len(array)-1):
         if array[i] == array[i+1]:
-            count += 1
-    print(f"Количество пар соседствующих одинаковых символов: {count}")
+            count_pairs += 1
+    print(f'Количество пар соседствующих одинаковых символов в последовательности "{array}": {count_pairs}')
 
 def proverka4(array):
-    index = -1
-    for i in range(1, len(array) - 1):
-        if array[i] == array[i+1] and array[i-1] == array[i+1]:
-            index = i
-            break
-
-    if index != -1:
-        print(f"Существуют такие символы s{i} и s{j} (где 1 < i < j < n) такие, что '{array[index]}' совпадает со следующим символом.")
-    else:
-        print("Нет таких символов")
+    for i in range(1, len(array)-1):
+        if array[i-1] == array[i] and array[i+1] == array[i]:
+            print(f'Существуют натуральные i и j (1 < i < j < n), такие что {array[i-1]}{array[i]}{array[i+1]}.')
 
 def proverka5(array):
-    count = 0
-    for char in array:
-        if char == " ":
-            count += 1
-    print(f"Количество пробелов в массиве: {count}")
+    count_spaces = array.count(' ')
+    print(f'Количество пробелов в последовательности "{array}": {count_spaces}')
 
-task1()
+def task1():
+    n = int(input('Введите количество символов: '))
+    char_array = []
+
+    for i in range(n):
+        char = input(f'Введите символ {i+1}: ')
+        char_array.append(char)
+
+    print_char_list(char_array)
+
+    proverka1(char_array, input('Введите символ для проверки вхождения: '))
+
+    first_symbol = input('Введите первый символ для проверки пары соседствующих символов: ')
+    second_symbol = input('Введите второй символ для проверки пары соседствующих символов: ')
+    proverka2(char_array, first_symbol, second_symbol)
+
+    proverka3(char_array)
+    proverka4(char_array)
+    proverka5(char_array)
+
+# Вызываем функцию task1
+# task1()
 
 import random
 
 def print_char_2d_array(array):
     for row in array:
         for char in row:
-            print(char, end=" ")
+            print(char, end=' ')
         print()
 
-def task2():
-    print("Введите размер стороны поля для игры «Морской бой»:")
-    n = int(input())
-
-    array = [['•'] * (n+1) for _ in range(n+1)]
-
-    # Расстановка символов "∆"
-    for i in range(1, n+1):
-        for j in range(1, n+1):
-            array[i][j] = '∆'
-
-    print_char_2d_array(array)
-
-    def vistrel(row, column, array):
-        if array[row][column] == '∆':
-            array[row][column] = 'x'
-
-    while True:
-        print("Введите координаты в формате 'A2' или 'A 2':")
-        coordinates = input().split()
-        if len(coordinates) == 2:
-            column = ord(coordinates[0].upper()) - ord('A') + 1
-            row = int(coordinates[1])
-            if 1 <= row <= n and 1 <= column <= n:
-                vistrel(row, column, array)
-                print_char_2d_array(array)
-            else:
-                print("Неверные координаты, попробуйте снова.")
+def vistrel(row, column, array):
+    if 1 <= row+1 <= len(array)-1 and 1 <= column+1 <= len(array[0])-1:
+        if array[row+1][column+1] == '□':
+            array[row+1][column+1] = '×'
+            print(f'Попадание! ({chr(65+column+1)}{row+1})')
         else:
-            print("Неверный формат координат, попробуйте снова.")
+            print(f'Мимо! ({chr(65+column+1)}{row+1})')
 
-task2()
+def task2():
+    n = int(input('Введите размер стороны поля для игры «Морской бой»: '))
+    
+    # Создаем двухмерный массив и заполняем его
+    field = [['·' for _ in range(n+1)] for _ in range(n+1)]
+    for i in range(1, n+1):
+        field[0][i] = chr(64+i)  # Заполняем буквами A, B, C, ...
+        field[i][0] = str(i)  # Заполняем числами 1, 2, 3, ...
 
-def task3():
-    keyword = "стоп"
+    # Расставляем символы «□» с использованием генератора псевдослучайных чисел
+    for _ in range(n):
+        row = random.randint(1, n)
+        col = random.randint(1, n)
+        while field[row][col] == '□':
+            row = random.randint(1, n)
+            col = random.randint(1, n)
+        field[row][col] = '□'
 
+    # Выводим начальное поле
+    print_char_2d_array(field)
+
+    # Игровой цикл
     while True:
-        print("Введите текст:")
-        text = input()
+        # Запрашиваем координаты от пользователя
+        coords = input('Введите координаты в формате "A2" (или "A 2"): ')
+        col, row = ord(coords[0].upper()) - 65, int(coords[1:]) - 1
 
-        if text == keyword:
+        # Выполняем выстрел
+        vistrel(row, col, field)
+
+        # Выводим обновленное поле
+        print_char_2d_array(field)
+
+        # Проверяем условие завершения игры
+        if all(all(cell != '□' for cell in row) for row in field):
+            print('Поздравляем! Вы выиграли!')
             break
 
-        with open("output.txt", "a") as file:
-            file.write(text + "\n")
+# Вызываем функцию task2
+# task2()
 
-task3()
+def task3():
+    keyword = "стоп"  # Ключевое слово для завершения ввода
+    filename = "data/output3.txt"  # Имя файла для записи
+
+    with open(filename, 'a') as file:
+        while True:
+            # Выводим сообщение и запрашиваем ввод строки от пользователя
+            user_input = input('Введите текст (для завершения введите "стоп"): ')
+
+            # Проверяем, введено ли ключевое слово
+            if user_input.lower() == keyword:
+                print(f'Ввод завершен. Текст сохранен в файле "{filename}".')
+                break
+
+            # Записываем введенную строку в файл
+            file.write(user_input + '\n')
+
+# Вызываем функцию task3
+# task3()
 
 def print_string_list(array):
     for string in array:
         print(string)
 
-def proverka(array, string):
-    modified_array = []
-    for element in array:
-        if string in element:
-            modified_array.append(element + " ✔")
-        else:
-            modified_array.append(element)
-    return modified_array
+def proverka(array, text_to_find):
+    for i in range(len(array)):
+        if text_to_find.lower() in array[i].lower():
+            array[i] += ' ✔'
 
 def task4():
-    array = [
+    websites = [
         "example.com",
+        "google.com",
         "facebook.com",
         "twitter.com",
         "instagram.com",
         "linkedin.com",
-        "stackoverflow.com",
-        "github.com",
         "youtube.com",
-        "medium.com",
-        "google.com"
+        "stackoverflow.com",
+        "python.org",
+        "github.com"
     ]
 
-    print("Список элементов:")
-    print_string_list(array)
+    # Выводим массив строк
+    print_string_list(websites)
 
-    print("\nВведите искомый текст:")
-    text_to_find = input()
+    # Запрашиваем искомый текст
+    text_to_find = input('Введите искомый текст: ')
 
-    modified_array = proverka(array, text_to_find)
+    # Выполняем проверку и модификацию массива
+    proverka(websites, text_to_find)
 
-    print("\nСписок элементов после проверки:")
-    print_string_list(modified_array)
+    # Выводим массив строк после модификации
+    print_string_list(websites)
 
-task4()
+# Вызываем функцию task4
+# task4()
 
-import os
-import random
-import string
+def task5():
+    filename = "data/output5.txt"  # Имя файла для записи
+    keyword = "стоп"  # Ключевое слово для завершения ввода
 
-def task7():
-    # Шаг 1: Задание массива расширений файлов
-    extensions = ['txt', 'doc', 'pdf']  # Пример массива с тремя расширениями
+    with open(filename, 'w') as file:
+        while True:
+            # Выводим сообщение и запрашиваем ввод строки от пользователя
+            user_input = input('Введите текст (для завершения введите "стоп"): ')
 
-    # Шаг 2: Создание директорий
-    for extension in extensions:
-        os.makedirs(extension, exist_ok=True)
+            # Записываем введенную строку в файл
+            file.write(user_input + '\n')
 
-    # Шаг 3: Создание файлов
-    num_files = 10
-    files = []
-    for _ in range(num_files):
-        file_name = ''.join(random.choices(string.ascii_lowercase, k=5))  # Генерация случайного имени файла
-        extension = random.choice(extensions)  # Случайный выбор расширения из массива
-        file_path = file_name + '.' + extension
-        files.append(file_path)
-        open(file_path, 'w').close()  # Создание пустого файла
+            # Проверяем, введено ли ключевое слово
+            if user_input.lower() == keyword:
+                print(f'Ввод завершен. Текст сохранен в файле "{filename}".')
+                break
 
-    # Шаг 4: Вывод списка файлов
-    print("Список файлов:")
-    for file_path in files:
-        print(file_path)
+# Вызываем функцию task5
+# task5()
 
-    # Шаг 5: Ожидание нажатия клавиши для переноса файлов
-    input("Нажмите любую клавишу для переноса файлов ...")
+import matplotlib.pyplot as plt
+import re
 
-    # Шаг 6: Перенос файлов в соответствующие директории
-    for file_path in files:
-        extension = file_path.split('.')[-1]
-        if extension in extensions:
-            destination_dir = extension
-            os.rename(file_path, os.path.join(destination_dir, file_path))
+def extract_floats_from_line(line):
+    return [float(match.group()) for match in re.finditer(r'-?\d+\.\d+E[+-]\d+', line)]
 
-# Пример использования функции
-task7()
+def task6():
+    input_file = "data/variant15.txt"
 
+    # Чтение файла и анализ структуры данных
+    with open(input_file, 'r') as file:
+        lines = file.readlines()
 
+    header_line = None
+    for i, line in enumerate(lines):
+        if line.strip().startswith("NODE"):
+            header_line = i
+            break
+
+    if header_line is None:
+        print("Некорректный формат файла. Отсутствует ключевое слово 'NODE'.")
+        return
+
+    # Получение характеристик из заголовка
+    headers = lines[header_line].split()
+    headers.remove("NODE")
+    num_columns_float = len(headers)
+    # Инициализация массивов данных
+    data_arrays = {header: [] for header in headers}
+
+   # Заполнение массивов данными из файла
+    for line in lines[header_line + 1:]:
+        values = extract_floats_from_line(line)
+        if len(values) != num_columns_float:
+            print(f"Ошибка в строке: {line}")
+            continue
+
+        for i in range(num_columns_float):
+            data_arrays[headers[i]].append(values[i])   
+
+    # Создание файлов характеристик
+    for header, data in data_arrays.items():
+        if header == "NODE":
+            continue
+        output_file = f"data/{header}.dat"
+        with open(output_file, 'w') as file:
+            for value in data:
+                file.write(f"{value}\n")
+        print(f"Файл {output_file} успешно создан.")
+
+    # Вывод графиков
+    for header, data in data_arrays.items():
+        plt.plot(data, label=header)
+
+    plt.xlabel('Узлы')
+    plt.ylabel('Значения')
+    plt.legend()
+    plt.title('Графики характеристик')
+    plt.show()
+
+# Вызываем функцию task6
+task6()
