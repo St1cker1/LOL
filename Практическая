@@ -1,4 +1,3 @@
-from PyQt5.QtWidgets import (
     QApplication,
     QLabel,
     QLineEdit,
@@ -10,48 +9,9 @@ from PyQt5.QtWidgets import (
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-
 class MainWindow(QMainWindow):
-    def init(self, parent=None):
-        super(MainWindow, self).init(parent)
-
-        # Назначим заголовок окна
-        self.setWindowTitle("График")
-
-        # Создание виджетов
-        self.canvas = FigureCanvas(plt.figure()) # Создание полотна Matplotlib
-        self.plot_button = QPushButton("Нарисовать график")
-        self.plot_button.clicked.connect(self.plot_data)
-        self.range_label = QLabel("Диапазон:")
-        self.range_start_input = QLineEdit('0')
-        self.range_end_input = QLineEdit('1')
-
-        self.function_label = QLabel("Функция:")
-        self.function_input = QLineEdit('x**3')
-
-        # Создание центрального виджета
-        central_widget = QWidget()
-        layout = QVBoxLayout() # макет, на который будут добавляться виджеты
-        central_widget.setLayout(layout) # добавление макета на центральный виджет
-
-
-        # Добавление виджетов на макет
-        layout.addWidget(self.canvas)
-        layout.addWidget(self.plot_button)
-        layout.addWidget(self.range_label)
-        layout.addWidget(self.range_start_input)
-        layout.addWidget(self.range_end_input)
-
-        layout.addWidget(self.function_label)
-        layout.addWidget(self.function_input)
-
-        # Установка центрального виджета
-        self.setCentralWidget(central_widget)
-
-        # Вызов функции рисования графика
-        # self.plot_data()
-
     def plot_data(self):
+
         try:
             range_start = float(self.range_start_input.text())
             range_end = float(self.range_end_input.text())
@@ -59,41 +19,45 @@ class MainWindow(QMainWindow):
             range_start = 0
             range_end = 1
 
-        try:
-            expression = self.function_input.text()
-        except ValueError:
-            expression = "x**3"
-        functions = {}  # определим словарь функций
-        exec(f"def f(x): return {expression}", functions)
-        function = functions["f"]
-        plt.title('Заголовок графика ' + expression)
-
-
-
         x = np.linspace(range_start, range_end, 50)
-        # x = np.linspace(0, 1, 50)
-
         function = lambda x: x ** 3
-
         y = [function(value) for value in x]
-
         plt.plot(x, y)
         plt.grid(True)
-
         plt.xlabel('x')
         plt.ylabel('y')
-
         plt.title('Заголовок график y=x**3')
-
         # Обновление виджета №0 (виджет с полотном Matplotlib)
         self.centralWidget().layout().itemAt(0).widget().draw()
-        # self.plot_data()
+
+
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent)
+        self.setWindowTitle("График")
+        self.canvas = FigureCanvas(plt.figure())
+        central_widget = QWidget()
+        layout = QVBoxLayout()
+        central_widget.setLayout(layout)
+        layout.addWidget(self.canvas)
+
+        self.setCentralWidget(central_widget)
+        self.plot_button = QPushButton("Нарисовать график")
+        self.plot_button.clicked.connect(self.plot_data)
+        layout.addWidget(self.plot_button)
+        self.range_label = QLabel("Диапазон:")
+        self.range_start_input = QLineEdit('0')
+        self.range_end_input = QLineEdit('1')
+        layout.addWidget(self.range_label)
+        layout.addWidget(self.range_start_input)
+        layout.addWidget(self.range_end_input)
+        self.function_label = QLabel("Функция:")
+        self.function_input = QLineEdit('x**3')
+        layout.addWidget(self.function_label)
+        layout.addWidget(self.function_input)
 
 
 # Создать приложение QApplication
 app = QApplication([])
-# Создать окно приложения
 main_window = MainWindow()
 main_window.show()
-# Запустить приложение
-app.exec()
+app.exec_()
