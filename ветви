@@ -1,0 +1,34 @@
+def ends_with_even_digit(number):
+    # Проверка, оканчивается ли число на четную цифру
+    last_digit = int(str(number)[-1])
+    return last_digit % 2 == 0
+
+def is_not_perfect_square(number):
+    # Проверка, является ли число бесквадратным
+    square_root = int(number ** 0.5)
+    return square_root ** 2 != number
+
+def task1():
+    while True:
+        try:
+            # Получение числа от пользователя
+            user_input = int(input("Введите число (или введите '0' для выхода): "))
+            
+            # Проверка числа с помощью двух функций
+            if user_input == 0:
+                # Выход из программы при вводе '0'
+                break
+            elif ends_with_even_digit(user_input):
+                print(f"{user_input} оканчивается на четную цифру.")
+            else:
+                print(f"{user_input} не оканчивается на четную цифру.")
+            
+            if is_not_perfect_square(user_input):
+                print(f"{user_input} является бесквадратным числом.")
+            else:
+                print(f"{user_input} не является бесквадратным числом.")
+                
+        except ValueError:
+            print("Ошибка! Введите корректное число.")
+
+# task1()
